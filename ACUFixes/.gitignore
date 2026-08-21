@@ -1,1 +1,5 @@
-copy_output_to_directory.txt
+build/
+.vs/
+*.pdb
+*_log.txt
+*.user

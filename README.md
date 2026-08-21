@@ -1,74 +1,61 @@
-# ACUFixes
-Addon/fixes for Assassin's Creed Unity 1.5.0\
-A small mod that aims to fix some of the annoying things about Assassin's Creed Unity.\
-Now with a Plugin Loader.
+# ACU Mods（刺客信条：大革命/Unity Mod 合集）
 
-> <a href="//imgur.com/a/RpFYGXX">Demo GIFs</a>
+本仓库包含两部分内容：
 
-## Features:
-- Enter windows by pressing R like in Assassin's Creed Syndicate (when climbing walls)
-- More reliable "Breakfall" (Hold ParkourDown/Interact (E) to Catch Ledge when in uncontrolled freefall)
-- Can drop bombs and perform Quickshot in more situations (while hanging on a wall, during a jump etc.)
-- No more imaginary bomb throws
-- Wider FOV when aiming bombs and the Guillotine Gun, zoom can be adjusted by pressing Right Mouse Button
-- Select Bombs Equipment Type by scrolling the Mouse Wheel
-- Arno is not forced to pull out the melee weapon while Disguise is active
-- Autowalk and Slow Walk
-- Less "sticky" Take Cover/Leave Cover
-- Easier turn on horizontal swings
-- Can aim bombs while sitting on perches
-- Slightly more responsive Crouch button
-- Unequip Pistol in the Pistols menu
-- FOV slider (in the "Personal requests" section of the mod menu)
-- Some other minor things
+## 一、ACUFixes 汉化版（ACUFixes/）
 
-#### Some cheats:
-- Weather Controls
-- Use the Head of Saint Denis outside missions (Thanks Jinouga on YouTube for the idea https://www.youtube.com/@jinouga-assassinscreedmodd3155)
-- Unbreakable Disguise
+基于 [NameTaken3125/ACUFixes](https://github.com/NameTaken3125/ACUFixes) **v0.9.3**（commit `08f84c3`）的中文汉化增强版。
 
-## Requirements
-Assassin's Creed Unity 1.5.0.
+### 相对上游的改动
 
-## How to use
-To install:\
-Place the files directly into the "Assassin's Creed Unity" folder (where the "ACU.exe" file is).\
-Game's folder structure will look like this:
+1. **全菜单简体中文汉化**：插件（ACUFixes.dll）与插件加载器（ACUFixes-PluginLoader.dll）的全部 ImGui 菜单项、按钮、提示框（tooltip）均已翻译为中文。
+2. **中文字体支持**：
+   - ImGui 字体加载优先使用系统微软雅黑（`msyh.ttc`），字形范围改为 `GetGlyphRangesChineseSimplifiedCommon()`；
+   - 菜单「附加」标签内可实时调节字体大小（9~75，默认 16），保存后写入配置文件 `fontSize` 字段。
+3. **独占全屏鼠标修复**：上游版本在独占全屏模式下菜单无法移动鼠标（WndProc 收不到鼠标消息）。本版在游戏原始输入钩子处用内部鼠标增量自行推算光标位置并喂给 ImGui；无边框窗口模式不受影响（自动检测、不重复干预）。
+4. **编译兼容性**：全部项目加 `/utf-8` 编译标志（源码含中文必须）；两份 `ImGuiConfigUtils.h` 补充 `#include "Serialization/enumFactory.h"`（v143 工具集下 `enum_reflection` 需要显式包含）。
+5. `release-dlls/` 内附带已编译好的发布文件（不含 PDB）。
+
+### 编译方法
+
+- Visual Studio 2022（MSVC v143），解决方案级构建（不要单独构建某个 vcxproj，会因 `$(SolutionDir)` 未定义而失败）：
+
+```bat
+msbuild ACUFixes.sln /p:Configuration=Release /p:Platform=x64 /p:PlatformToolset=v143
 ```
-    Assassin's Creed Unity/
-    ├── ACUFixes/
-    │   ├── plugins/
-    │   │   ├── NewAnimations/
-    │   │   └── ACUFixes.dll
-    │   └── ACUFixes-PluginLoader.dll
-    ├── ACU.exe
-    └── version.dll
+
+- 构建产物位于 `build\x64\Release\`。
+
+### 安装到游戏（Assassin's Creed Unity v1.5.0）
+
 ```
-Start the game, press `Insert` to open the menu.
+<游戏根目录>\
+├─ version.dll                        ← 代理加载器
+└─ ACUFixes\
+   ├─ ACUFixes-PluginLoader.dll
+   ├─ ACUFixes-PluginLoader-config.json
+   └─ plugins\
+      ├─ ACUFixes.dll
+      └─ NewAnimations\*.anim.json    ← 兜帽动画所需
+```
 
-To uninstall:
-1. Go to the game's folder.
-2. Delete the `version.dll`. The mod will not be loaded automatically anymore.
-3. Delete the `ACUFixes/` folder.
+进游戏后按 **Insert** 打开菜单（全中文）。
 
+## 二、Mods 目录（大革命相关工具与补丁）
 
-## For plugin developers: the Plugin Loader
-The `ACUFixes-PluginLoader.dll` can load DLL plugins from the `Assassin's Creed Unity/ACUFixes/plugins` folder.\
-If you want to develop code-patching mods for AC Unity, consider building them as a plugin. You get:
-- **Automatic injection** when the game's window opens.
-- **An ImGui graphical interface immediately compatible with ReShade** (and other plugins).
-- **An in-game ImGui Console** for logging (toggled by hotkey, default is "Keyboard OEM3"/"Tilde" (\~)/"Backtick" (\`))
-- A small **CrashLog**, which helps during development because this kind of modding does entail crashes, and ACU likes to make them silent.
-- A small C++ library containing some reverse engineered classes for AC Unity (the "ACU-RE" project in the source code).
-- You can use the `ACUFixes-PluginLoader.dll` without the `ACUFixes.dll` plugin, if you want to.
-- The Plugin Loader will disable the **Main Integrity Check** for you.
-- The Plugin Loader allows you to attach the **Visual Studio debugger** (after the game's window is opened, at least).
+| 目录 | 内容 |
+|---|---|
+| `Mods/AnvilToolkit_Utils/` | Anvil 工具箱辅助 |
+| `Mods/刺客信条ID转换器/` | 含 ACSaveTool_x64.exe 存档工具 |
+| `Mods/AnvilToolkit.exe` | Anvil 引擎资源解包/打包工具 |
+| `Mods/大革命/90帧物理补丁/` | 90 帧物理补丁 |
+| `Mods/大革命/AC修复mod/` | AC 修复 mod |
+| `Mods/大革命/大革命单独的ReShade补丁/` | ReShade 光效补丁 |
+| `Mods/大革命/翻滚动作/` | 前空翻动作 mod（两个 >100MB 的 .data 文件经 **Git LFS** 存储） |
+| `Mods/大革命/铁占工具箱/` | Anvil 工具箱（铁占=Anvil 音译） |
 
-Example plugins: Asset Overrides ([source code](//github.com/NameTaken3125/AssetOverrides-ACUnity)), Halzoid98CPP ([source code](//github.com/NameTaken3125/Halzoid98CPP)) and the `ACUFixes.dll` plugin itself.
+> 注：`3DMGAME-GhostReconBreakpointv20211103T17Epic.zip` 与本仓库主题无关，未纳入版本控制。
 
-## Some more modding resources
-### About Animation Modding
-See some notes [here](ACUFixes/src/AnimationTools/README.md) about the player's animation graph and how it was extended to implement the Removable Hood feature.
+## Git LFS 说明
 
-## Warning
-Consider backing up your savegame.
+克隆本仓库前请安装 [Git LFS](https://git-lfs.com/) 并执行 `git lfs install`，否则 `Mods/大革命/翻滚动作/` 下的大文件只会得到指针文件。
