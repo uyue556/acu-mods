@@ -53,6 +53,7 @@ msbuild ACUFixes.sln /p:Configuration=Release /p:Platform=x64 /p:PlatformToolset
 | `Mods/大革命/大革命单独的ReShade补丁/` | ReShade 光效补丁 |
 | `Mods/大革命/翻滚动作/` | 前空翻动作 mod（两个 >100MB 的 .data 文件经 **Git LFS** 存储） |
 | `Mods/大革命/铁占工具箱/` | Anvil 工具箱（铁占=Anvil 音译） |
+| `Mods/大革命/100%同步存档/` | 100% 同步存档（含列王陵 DLC），需用 ACSaveTool 转换成自己的账号 |
 
 > 注：`3DMGAME-GhostReconBreakpointv20211103T17Epic.zip` 与本仓库主题无关，未纳入版本控制。
 
