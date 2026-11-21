@@ -1,35 +1,30 @@
-ACST Changelog
-==============
+# ACSaveTool Changelog
 
-#### v2.3.1
-- Added support to convert ACLHD save to ACLRM (double click `Encryption ID` label)
-- Show output file name if different from the original file
-- Adjusted release package structure
+## v2.6.1
+- 新增《刺客信条：黑旗 Resynced》支持
+- GUI：修复处理存档路径时的回归问题
+- CLI：修正 Encryption ID 格式校验
 
-#### v2.3.0
-- Added support for loading certain non-standard saves (*.sav)
-- Moved backup save location to separate `acst_backup` folder
-- Fixed test save file processing logic
-- Performance optimization
-- Miscellaneous GUI issue fixup
+## v2.6.0
+- 新增《刺客信条：影》支持
+- **新增命令行（CLI）模式**
+- GUI：修复深色模式，Windows 11 下改用原生主题
 
-#### v2.2.0
-- Disable detection feature if user choose game title as ACR
-- Added support for Steep saves
-- Changed default file open path to user profile directory
-- Reduced release package size
-- Some cleanup and minor GUI issue fixes
+## v2.5.0
+- 新增《刺客信条：幻景》支持
+- 增强游戏标题自动识别能力
+- 支持《刺客信条：启示录》的解密/加密 ID 检测
+- GUI：支持把测试存档拖进 Encryption ID 输入框
+- GUI：打开存档时自动定位所选游戏的常见路径
+- GUI：偏好设置新增账号 ID 切换、详细日志开关
+- 其他代码重构与修复
 
-#### v2.1.1
-- Additional checking for the test save path to prevent folder or file with same name been used as test save
-- Relaxed filtering for decryption/encryption ID input to allow underscores (_) and dots (.)
+## v2.4.3
+- 偏好设置新增「保持当前存档格式」选项
+- 支持加载部分非标准存档
+- 修复开启硬件强制栈保护平台上的崩溃问题
 
-#### v2.1.0
-- Added support for detect decryption key from test save file
-- Fixed issue on GUI stopping processing saves when decryption and encryption key are both given
-- Added showing execution time on GUI
-- Added extra checking for valid save detection
-
-#### v2.0.0
-- First public release
+## v2.4.2
+- 修复处理部分非标准存档的问题
+- GUI：新增深色模式
 
