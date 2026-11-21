@@ -46,7 +46,7 @@ msbuild ACUFixes.sln /p:Configuration=Release /p:Platform=x64 /p:PlatformToolset
 | 目录 | 内容 |
 |---|---|
 | `Mods/AnvilToolkit_Utils/` | Anvil 工具箱辅助 |
-| `Mods/刺客信条ID转换器/` | 含 ACSaveTool_x64.exe 存档工具 |
+| `Mods/刺客信条ID转换器/` | ACSaveTool **v2.6.1** 存档 ID 转换工具（GUI + 命令行，支持大革命/枭雄/起源/奥德赛/英灵殿/幻景/影/黑旗等） |
 | `Mods/AnvilToolkit.exe` | Anvil 引擎资源解包/打包工具 |
 | `Mods/大革命/90帧物理补丁/` | 90 帧物理补丁 |
 | `Mods/大革命/AC修复mod/` | AC 修复 mod |
